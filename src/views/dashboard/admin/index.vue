@@ -102,8 +102,14 @@ export default {
     TodoList,
     BoxCard
   },
+
+  created() {
+    this.getData()
+  },
+
   data() {
     return {
+      mydata: null,
       lineChartData: lineChartData.newVisitis,
       pieChartData: pieChartData.newVisitis
     }
@@ -112,6 +118,17 @@ export default {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
       this.pieChartData = pieChartData[type]
+    },
+    getData() {
+      const axios = require('axios')
+      axios
+        .get('/apis/api/')
+        .then(
+          response => (
+            console.log(response)
+          )
+        )
+        .catch(err => console.log('Axios err: ', err))
     }
   }
 }

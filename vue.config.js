@@ -30,6 +30,16 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    proxy: {
+      '/apis': {    //将django server印射为/apis
+        target: 'http://192.168.0.103:8000',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/apis': ''
+        } 
+      }          
+    },
     port: port,
     open: true,
     overlay: {
@@ -123,6 +133,6 @@ module.exports = {
             })
           config.optimization.runtimeChunk('single')
         }
-      )
+      ) 
   }
 }
